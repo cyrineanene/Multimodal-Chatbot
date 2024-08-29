@@ -1,0 +1,7 @@
+model_path:
+  large: ""
+  small: ""
+
+model_type: "mistral"
+
+embeddings_path: "BAAI/bge-large-en-v1.5"
