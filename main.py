@@ -20,13 +20,16 @@ def send_input():
     st.session_state.send_input = True
     clear_input_field()
 
+def track_index():
+    st.session_state.session_index_tracker = st.session_state.session_key
+
 def save_chat_history():
     if st.session_state.history != []:
         if st.session_state.session_key == "new_session":
-            st.session_state.new_session_key = get_timestamp()
-            save_chat_history_json(st.session_state.history, config["chat_history_path"] + st.session_state.new_session_key + ".json")
+            st.session_state.new_session_key = get_timestamp() + '.json'
+            save_chat_history_json(st.session_state.history, config["chat_history_path"] + st.session_state.new_session_key)
         else:
-            save_chat_history_json(st.session_state.history, config["chat_history_path"] + st.session_state.session_key + ".json")
+            save_chat_history_json(st.session_state.history, config["chat_history_path"] + st.session_state.session_key)
 
 def start():
     st.title("Multimodal Chatbot App")
@@ -45,8 +48,13 @@ def start():
         st.session_state.new_session_key = None
 
     index = chat_sessions.index(st.session_state.session_index_tracker)    
-    st.sidebar.selectbox("Select a chat session", chat_sessions, key="session_key", index = index)
+    st.sidebar.selectbox("Select a chat session", chat_sessions, key="session_key", index = index, on_change=track_index)
 
+    if st.session_state.session_key != "new_session":
+        st.session_state.history = load_chat_history_json(config['chat_history_path'] + st.session_state.session_key)
+    else:
+        st.session_state.history = []
+    
     chat_history = StreamlitChatMessageHistory(key="history")
     llm_chain = load_chain(chat_history)
 

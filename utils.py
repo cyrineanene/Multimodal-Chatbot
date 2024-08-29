@@ -14,4 +14,4 @@ def load_chat_history_json(file_path):
         return messages
     
 def get_timestamp():
-    return datetime.now().strftime("%Y-%m-%d %H-:%M: %S")
+    return datetime.now().strftime("%Y-%m-%d %H:%M: %S")
