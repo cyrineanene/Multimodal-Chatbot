@@ -43,6 +43,7 @@ def start():
         st.session_state.user_question = ""
         st.session_state.new_session_key = None
         st.session_state.session_index_tracker = "new_session"
+    
     if st.session_state.session_key == "new_session" and st.session_state.new_session_key != None:
         st.session_state.session_index_tracker = st.session_state.new_session_key
         st.session_state.new_session_key = None
