@@ -1,5 +1,6 @@
 import torch
 from transformers import pipeline
+#to convert the bytes to adequate format 
 import librosa
 import io
 

@@ -32,14 +32,12 @@ def load_normal_chain(chat_history):
     return chatChain(chat_history)
 
 def load_vectordb(embeddings):
-    persistent_client = chromadb.PersistentClient(config["chromadb"]["chromadb_path"])
-
+    persistent_client = chromadb.PersistentClient('chroma_db') #config["chromadb"]["chromadb_path"]
     langchain_chroma = Chroma(
         client=persistent_client,
-        collection_name=config["chromadb"]["collection_name"],
+        collection_name='pdfs', #config["chromadb"]["collection_name"]
         embedding_function=embeddings,
     )
-
     return langchain_chroma
 
 

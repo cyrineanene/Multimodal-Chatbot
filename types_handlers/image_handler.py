@@ -1,5 +1,6 @@
 from llama_cpp import Llama
 from llama_cpp.llama_chat_format import Llava15ChatHandler
+#to convert the bytes to adequate format
 import base64
 
 def convert_bytes_to_64(image_bytes):
