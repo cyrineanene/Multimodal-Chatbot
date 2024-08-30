@@ -4,6 +4,7 @@ from utils import save_chat_history_json, load_chat_history_json, get_timestamp
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory
 from streamlit_mic_recorder import mic_recorder
 from types_handlers.audio_handler import transcribe_audio
+from types_handlers.image_handler import handle_image
 import yaml
 import os
 
@@ -70,7 +71,8 @@ def start():
         send_button = st.button("Send", key = "send_button", on_click = clear_input_field)
 
     uploaded_audio = st.sidebar.file_uploader("Upload an audio file", type=['wav', 'mp3', 'ogg'])
-    
+    uploaded_image = st.sidebar.file_uploader("Upload an image file", type=['jpg', 'jpeg', 'png'])
+
     if uploaded_audio:
         transcribed_audio = transcribe_audio(uploaded_audio.getvalue())
         #Summaring the audio text for easier use
@@ -81,6 +83,18 @@ def start():
         llm_response = llm_chain.run(transcribed_audio)
 
     if send_button or st.session_state.send_input:
+        if uploaded_image:
+            with st.spinner('Processing image...'):
+                user_message = 'Describe this image in detail.' #if we only enter the image and click on the button then this will be the given prompt
+            if st.session_state.user_question != "":
+                user_message = st.session_state.user_question
+                st.session_state.user_question = ""
+            llm_answer = handle_image(uploaded_image.getvalue(), st.session_state.user_question)
+
+            #Writing the messages in the memory because Llava model doesn't automatically do that
+            chat_history.add_user_message(user_message)
+            chat_history.add_ai_message(llm_answer)
+
         if st.session_state.user_question != "":
             llm_response = llm_chain.run(st.session_state.user_question)
             st.session_state.user_question = ""
