@@ -31,6 +31,18 @@ def create_llm_chain(llm, chat_prompt, memory):
 def load_normal_chain(chat_history):
     return chatChain(chat_history)
 
+def load_vectordb(embeddings):
+    persistent_client = chromadb.PersistentClient(config["chromadb"]["chromadb_path"])
+
+    langchain_chroma = Chroma(
+        client=persistent_client,
+        collection_name=config["chromadb"]["collection_name"],
+        embedding_function=embeddings,
+    )
+
+    return langchain_chroma
+
+
 class chatChain:
     def __init__(self, chat_history):
         self.memory = create_chat_memory(chat_history)
