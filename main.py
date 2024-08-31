@@ -5,6 +5,7 @@ from langchain_community.chat_message_histories import StreamlitChatMessageHisto
 from streamlit_mic_recorder import mic_recorder
 from types_handlers.audio_handler import transcribe_audio
 from types_handlers.image_handler import handle_image
+from types_handlers.pdf_handler import add_documents_to_db
 import yaml
 import os
 
@@ -72,6 +73,11 @@ def start():
 
     uploaded_audio = st.sidebar.file_uploader("Upload an audio file", type=['wav', 'mp3', 'ogg'])
     uploaded_image = st.sidebar.file_uploader("Upload an image file", type=['jpg', 'jpeg', 'png'])
+    uploaded_pdf = st.sidebar.file_uploader("Upload an pdf file", accept_multiple_files=True, key="pdf_upload", type=['pdf'])
+
+    if uploaded_pdf:
+        with st.spinner('Processing pdf...'):
+            add_documents_to_db(uploaded_pdf)
 
     if uploaded_audio:
         transcribed_audio = transcribe_audio(uploaded_audio.getvalue())

@@ -17,7 +17,7 @@ def create_llm(model_path = config["model_path"]["large"], model_type=config["mo
     return llm
 
 def create_embeddings(embedding_path = config["embeddings_path"]):
-    return HuggingFaceInstructEmbeddings(embedding_path)
+    return HuggingFaceInstructEmbeddings(model_name=embedding_path)
 
 def create_chat_memory(chat_history):
     return ConversationBufferWindowMemory(memory_key= "history", chat_memory=chat_history, k=3)
