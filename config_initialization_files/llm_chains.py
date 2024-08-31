@@ -7,10 +7,10 @@ from langchain_community.llms import CTransformers
 from langchain_community.vectorstores import Chroma
 import chromadb
 import yaml 
-from prompt_templates import memory_prompt_template
+from config_initialization_files.prompt_templates import memory_prompt_template
 
 #Loading the config file
-with open("config.yaml", "r") as f:
+with open("config_initialization_files/config.yaml", "r") as f:
     config = yaml.safe_load(f)
 
 def create_llm(model_path = config["model_path"]["large"], model_type=config["model_type"], model_config = config["model_config"]):

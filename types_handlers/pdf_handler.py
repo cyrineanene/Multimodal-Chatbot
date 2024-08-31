@@ -1,6 +1,6 @@
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
-from llm_chains import load_vectordb, create_embeddings
+from config_initialization_files.llm_chains import load_vectordb, create_embeddings
 #to convert the bytes to adequate format
 import pypdfium2
 

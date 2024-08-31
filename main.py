@@ -1,6 +1,6 @@
 import streamlit as st
-from llm_chains import load_normal_chain, load_pdf_chat_chain
-from utils import save_chat_history_json, load_chat_history_json, get_timestamp
+from config_initialization_files.llm_chains import load_normal_chain, load_pdf_chat_chain
+from config_initialization_files.utils import save_chat_history_json, load_chat_history_json, get_timestamp
 from langchain_community.chat_message_histories import StreamlitChatMessageHistory
 from streamlit_mic_recorder import mic_recorder
 from types_handlers.audio_handler import transcribe_audio
@@ -10,7 +10,7 @@ import yaml
 import os
 
 #Loading the config file
-with open("config.yaml", "r") as f:
+with open("config_initialization_files/config.yaml", "r") as f:
     config = yaml.safe_load(f)
 
 def load_chain(chat_history):
