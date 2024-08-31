@@ -54,6 +54,7 @@ def start():
 
     index = chat_sessions.index(st.session_state.session_index_tracker)    
     st.sidebar.selectbox("Select a chat session", chat_sessions, key="session_key", index = index, on_change=track_index)
+    st.sidebar.toggle("PDF Chat", key='pdf_chat', value=False)
 
     if st.session_state.session_key != "new_session":
         st.session_state.history = load_chat_history_json(config['chat_history_path'] + st.session_state.session_key)
