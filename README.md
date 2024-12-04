@@ -6,7 +6,7 @@ This repository contains a multimodal chatbot designed to handle various types o
 
 ## Features
 ### Audio Processing: 
-The chatbot uses the Whisper AI model `mistral-7b-instruct-v0.1.Q3_K_M.gguf` to convert audio into text. This model is a quantized version, which makes it highly efficient for running on standard consumer hardware without significant performance degradation.
+The chatbot uses the Whisper AI model `whisper-ai small` to convert audio into text. 
 ![alt text](images/whisper_architecture.png)
 [Whisper AI Official Documentation](https://github.com/openai/whisper/blob/main/model-card.md)
 
